@@ -1,7 +1,8 @@
 'use client'
-import React, { createContext, useContext, useState, ReactNode } from 'react';
-import { UserData, TasksData } from '../types/habitjunkie';
+import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
+import { UserData, TasksData, Habit, Difficulty } from '../types/habitjunkie';
 
+// Extended interface to include new habit functionality
 interface DashboardContextType {
   userData: UserData;
   tasks: TasksData;
@@ -9,6 +10,11 @@ interface DashboardContextType {
   toggleTodo: (id: number) => void;
   updateHabit: (id: number, isPositive: boolean) => void;
   purchaseReward: (id: number, cost: number) => void;
+  resetProgress: () => void;
+  isLoaded: boolean;
+  // New functions for habit management
+  addHabit: (title: string, difficulty: Difficulty, positive: boolean, negative: boolean) => void;
+  deleteHabit: (id: number) => void;
 }
 
 const initialUserData: UserData = {
@@ -49,9 +55,101 @@ interface DashboardProviderProps {
   children: ReactNode;
 }
 
+// Storage keys for localStorage
+const USER_DATA_KEY = 'habitjunkie_userData';
+const TASKS_DATA_KEY = 'habitjunkie_tasksData';
+
 export const DashboardProvider: React.FC<DashboardProviderProps> = ({ children }) => {
+  // Always initialize with the default data for server rendering
   const [userData, setUserData] = useState<UserData>(initialUserData);
   const [tasks, setTasks] = useState<TasksData>(initialTasksData);
+  const [isLoaded, setIsLoaded] = useState(false);
+  
+  // Load data from localStorage after initial render
+  useEffect(() => {
+    // This runs only on the client after hydration is complete
+    const storedUserData = localStorage.getItem(USER_DATA_KEY);
+    const storedTasksData = localStorage.getItem(TASKS_DATA_KEY);
+    
+    if (storedUserData) {
+      setUserData(JSON.parse(storedUserData));
+    }
+    
+    if (storedTasksData) {
+      setTasks(JSON.parse(storedTasksData));
+    }
+    
+    setIsLoaded(true);
+  }, []);
+  
+  // Save to localStorage whenever state changes
+  // But only after initial client-side load is complete
+  useEffect(() => {
+    if (isLoaded) {
+      localStorage.setItem(USER_DATA_KEY, JSON.stringify(userData));
+    }
+  }, [userData, isLoaded]);
+  
+  useEffect(() => {
+    if (isLoaded) {
+      localStorage.setItem(TASKS_DATA_KEY, JSON.stringify(tasks));
+    }
+  }, [tasks, isLoaded]);
+
+  // Helper function to generate a new unique ID for habits
+  const generateNewHabitId = (): number => {
+    // Find the maximum ID in the current habits array
+    const maxId = tasks.habits.reduce(
+      (max, habit) => (habit.id > max ? habit.id : max),
+      0
+    );
+    // Return the next ID in sequence
+    return maxId + 1;
+  };
+
+  // Add a new habit to the habits list
+  const addHabit = (
+    title: string,
+    difficulty: Difficulty,
+    positive: boolean,
+    negative: boolean
+  ): void => {
+    const newHabit: Habit = {
+      id: generateNewHabitId(),
+      title,
+      difficulty,
+      positive,
+      negative,
+      count: 0, // Start with a count of 0
+    };
+
+    setTasks({
+      ...tasks,
+      habits: [...tasks.habits, newHabit],
+    });
+
+    // Give the user a small reward for creating a new habit
+    setUserData({
+      ...userData,
+      experience: Math.min(userData.experience + 2, userData.maxExperience),
+    });
+  };
+
+  // Delete a habit from the habits list
+  const deleteHabit = (id: number): void => {
+    setTasks({
+      ...tasks,
+      habits: tasks.habits.filter(habit => habit.id !== id),
+    });
+  };
+
+  // Reset progress function
+  const resetProgress = (): void => {
+    localStorage.removeItem(USER_DATA_KEY);
+    localStorage.removeItem(TASKS_DATA_KEY);
+    setUserData(initialUserData);
+    setTasks(initialTasksData);
+  };
 
   // Toggle completion of daily tasks
   const toggleDaily = (id: number): void => {
@@ -128,7 +226,12 @@ export const DashboardProvider: React.FC<DashboardProviderProps> = ({ children }
       toggleDaily, 
       toggleTodo, 
       updateHabit, 
-      purchaseReward 
+      purchaseReward,
+      resetProgress,
+      isLoaded,
+      // Expose the new functions
+      addHabit,
+      deleteHabit
     }}>
       {children}
     </DashboardContext.Provider>

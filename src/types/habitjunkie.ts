@@ -11,10 +11,12 @@ export interface UserData {
   streak: number;
 }
 
+export type Difficulty = 'easy' | 'medium' | 'hard';
+
 export interface Habit {
   id: number;
   title: string;
-  difficulty: 'easy' | 'medium' | 'hard';
+  difficulty: Difficulty;
   positive: boolean;
   negative: boolean;
   count: number;
@@ -23,7 +25,7 @@ export interface Habit {
 export interface Daily {
   id: number;
   title: string;
-  difficulty: 'easy' | 'medium' | 'hard';
+  difficulty: Difficulty;
   completed: boolean;
   streak: number;
 }
@@ -31,7 +33,7 @@ export interface Daily {
 export interface Todo {
   id: number;
   title: string;
-  difficulty: 'easy' | 'medium' | 'hard';
+  difficulty: Difficulty;
   completed: boolean;
   dueDate: string;
 }

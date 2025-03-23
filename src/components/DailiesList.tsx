@@ -11,7 +11,7 @@ const DailiesList: React.FC = () => {
     <Card title='Dailies' children={
       (<ul className="space-y-3">
         {tasks.dailies.map(daily => (
-          <li key={daily.id} className={`p-3 border rounded-lg flex items-center justify-between ${daily.completed ? 'bg-gray-100 text-gray-500' : getDifficultyColor(daily.difficulty)}`}>
+          <li key={daily.id} className={`p-3 border rounded-lg flex items-center justify-between ${daily.completed ? 'bg-gray-100 text-gray-500 dark:bg-slate-900' : getDifficultyColor(daily.difficulty)}`}>
             <div className="flex items-center space-x-3">
               <input
                 type="checkbox"
