@@ -1,6 +1,7 @@
 // components/Header.tsx
 import React from 'react';
-import { useDashboard } from '../context/DashboardContext';
+import { useDashboard } from '../contexts/DashboardContext';
+import ThemeToggle from './ThemeToggle';
 
 const Header: React.FC = () => {
   const { userData } = useDashboard();
@@ -60,6 +61,8 @@ const Header: React.FC = () => {
                 <span>{userData.gems}</span>
               </div>
             </div>
+
+            <ThemeToggle />
           </div>
         </div>
       </div>

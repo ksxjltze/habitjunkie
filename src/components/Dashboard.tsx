@@ -6,12 +6,17 @@ import DailiesList from './DailiesList';
 import TodosList from './TodosList';
 import RewardsList from './RewardsList';
 import Footer from './Footer';
-import { DashboardProvider } from '../context/DashboardContext';
+import { DashboardProvider } from '../contexts/DashboardContext';
+import { useTheme } from '@/contexts/ThemeContext';
+import ThemeToggle from './ThemeToggle';
+import Card from './Card';
 
 const Dashboard: React.FC = () => {
+  const {theme} = useTheme();
+
   return (
     <DashboardProvider>
-      <div className="flex flex-col min-h-screen bg-gray-100">
+      <div className="flex flex-col min-h-screen">
         <Header />
         
         <main className="flex-grow container mx-auto p-4">
