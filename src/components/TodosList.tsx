@@ -11,7 +11,7 @@ const TodosList: React.FC = () => {
     <Card title='To-Dos' children={
       (<ul className="space-y-3">
         {tasks.todos.map(todo => (
-          <li key={todo.id} className={`p-3 border rounded-lg flex items-center justify-between ${todo.completed ? 'bg-gray-100 text-gray-500' : getDifficultyColor(todo.difficulty)}`}>
+          <li key={todo.id} className={`p-2 border rounded-lg flex items-center justify-between ${todo.completed ? 'bg-gray-100 text-gray-500 dark:bg-slate-900' : getDifficultyColor(todo.difficulty)}`}>
             <div className="flex items-center space-x-3">
               <input
                 type="checkbox"
@@ -22,7 +22,7 @@ const TodosList: React.FC = () => {
               <div>
                 <span className={`font-medium ${todo.completed ? 'line-through' : ''}`}>{todo.title}</span>
                 {todo.dueDate && (
-                  <p className="text-xs text-gray-500">Due: {todo.dueDate}</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">Due: {todo.dueDate}</p>
                 )}
               </div>
             </div>

@@ -13,6 +13,7 @@ interface DashboardContextType {
 
 const initialUserData: UserData = {
   username: 'Adventurer',
+  title: 'Novice',
   level: 10,
   health: 45,
   maxHealth: 50,

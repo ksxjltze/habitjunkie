@@ -7,16 +7,16 @@ const Header: React.FC = () => {
   const { userData } = useDashboard();
   
   return (
-    <header className="bg-purple-700 text-white p-4 shadow-md">
+    <header className="bg-purple-700 dark:bg-slate-800 text-white p-4 shadow-md">
       <div className="container mx-auto">
         <div className="flex flex-wrap items-center justify-between">
           <div className="flex items-center space-x-4">
-            <div className="w-12 h-12 rounded-full bg-purple-500 flex items-center justify-center text-xl font-bold">
+            <div className="w-12 h-12 rounded-full bg-purple-500 dark:bg-fuchsia-900 flex items-center justify-center text-xl font-bold">
               {userData.level}
             </div>
             <div>
               <h1 className="text-xl font-bold">{userData.username}</h1>
-              <p className="text-sm">Mighty Adventurer</p>
+              <p className="text-sm">{userData.title ? userData.title  : "Novice"}</p>
             </div>
           </div>
           

@@ -10,7 +10,7 @@ const RewardsList: React.FC = () => {
     <Card title='Rewards' children={(
       <ul className="space-y-3">
         {tasks.rewards.map(reward => (
-          <li key={reward.id} className="p-3 border border-yellow-200 bg-yellow-50 rounded-lg flex items-center justify-between">
+          <li key={reward.id} className="p-3 border border-yellow-200 dark:bg-purple-900 bg-yellow-50 rounded-lg flex items-center justify-between">
             <span className="font-medium">{reward.title}</span>
             <button
               onClick={() => purchaseReward(reward.id, reward.cost)}

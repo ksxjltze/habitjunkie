@@ -1,5 +1,6 @@
 export interface UserData {
   username: string;
+  title: string;
   level: number;
   health: number;
   maxHealth: number;
