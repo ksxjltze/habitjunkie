@@ -19,6 +19,15 @@ const AddHabitModal: React.FC<AddHabitModalProps> = ({ isOpen, onClose, habit })
     const [positive, setPositive] = useState(habit?.positive ?? true);
     const [negative, setNegative] = useState(habit?.negative ?? false);
 
+    const ModalTitle = () => {
+        const title = habit ? "Add New Habit" : "Edit Habit";
+        return (<h2 className="text-xl font-bold text-gray-900 dark:text-white">{title}</h2>);
+    };
+
+    const ModalActionText = () => {
+        return habit ? "Add Habit" : "Confirm Changes";
+    };
+
     const handleCloseClick = (e: React.MouseEvent) => {
         e.stopPropagation(); // Stop the event from bubbling up
         onClose();
@@ -35,11 +44,11 @@ const AddHabitModal: React.FC<AddHabitModalProps> = ({ isOpen, onClose, habit })
         }
 
         if (habit) {
-          // Update existing habit (preserve count)
-          editHabit(habit.id, { title, difficulty, positive, negative });
+            // Update existing habit (preserve count)
+            editHabit(habit.id, { title, difficulty, positive, negative });
         } else {
-          // Add new habit
-          addHabit(title, difficulty, positive, negative);
+            // Add new habit
+            addHabit(title, difficulty, positive, negative);
         }
 
         // Reset the form
@@ -66,7 +75,7 @@ const AddHabitModal: React.FC<AddHabitModalProps> = ({ isOpen, onClose, habit })
             <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 w-full max-w-md"
                 onClick={(e) => e.stopPropagation()}>
                 <div className="flex justify-between items-center mb-4">
-                    <h2 className="text-xl font-bold text-gray-900 dark:text-white">Add New Habit</h2>
+                    {ModalTitle()}
                     <button
                         onClick={handleCloseClick}
                         className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
@@ -179,7 +188,7 @@ const AddHabitModal: React.FC<AddHabitModalProps> = ({ isOpen, onClose, habit })
                             disabled={!title.trim() || (!positive && !negative)}
                             className="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 disabled:bg-purple-400 disabled:cursor-not-allowed"
                         >
-                            Add Habit
+                            {ModalActionText()}
                         </button>
                     </div>
                 </form>
