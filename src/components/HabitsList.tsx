@@ -8,7 +8,7 @@ import { MinusCircleIcon, PlusCircleIcon, PencilSquareIcon, TrashIcon } from '@h
 import AddHabitModal from './AddHabitModal';
 
 const Habits = () => {
-  const { tasks, updateHabit } = useDashboard();
+  const { tasks, updateHabit, deleteHabit } = useDashboard();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = () => setIsModalOpen(true);
@@ -38,30 +38,28 @@ const Habits = () => {
           }>
           <div className="flex space-x-2 w-1/8 ml-0.5">
             {habit.negative && (
-              <button
+              <div><button
                 onClick={() => updateHabit(habit.id, false)}
                 className="w-8 h-8 rounded-full bg-red-500 dark:bg-gray-800 text-white flex items-center justify-center hover:bg-red-600"
               >
                 <MinusCircleIcon />
-              </button>
-              <button
+              </button><button
                 onClick={(e) => {
                   e.stopPropagation();
                   setIsModalOpen(true);
                 }}
                 className="w-8 h-8 rounded-full bg-blue-500 dark:bg-gray-800 text-white flex items-center justify-center hover:bg-blue-600"
               >
-                <PencilSquareIcon className="w-4 h-4" />
-              </button>
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  deleteHabit(habit.id);
-                }}
-                className="w-8 h-8 rounded-full bg-red-500 dark:bg-gray-800 text-white flex items-center justify-center hover:bg-red-600"
-              >
-                <TrashIcon className="w-4 h-4" />
-              </button>
+                  <PencilSquareIcon className="w-4 h-4" />
+                </button><button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    deleteHabit(habit.id);
+                  }}
+                  className="w-8 h-8 rounded-full bg-red-500 dark:bg-gray-800 text-white flex items-center justify-center hover:bg-red-600"
+                >
+                  <TrashIcon className="w-4 h-4" />
+                </button></div>
             )}
           </div>
         </ListItem>

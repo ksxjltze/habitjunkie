@@ -239,9 +239,9 @@ export const DashboardProvider: React.FC<DashboardProviderProps> = ({ children }
       purchaseReward,
       resetProgress,
       isLoaded,
-      // Expose the new functions
       addHabit,
-      deleteHabit
+      deleteHabit,
+      editHabit
     }}>
       {children}
     </DashboardContext.Provider>
