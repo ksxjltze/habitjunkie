@@ -78,7 +78,7 @@ const _create = async () => {
                         method: 'PUT'
                     }
                 );
-            } catch (err) { }
+            } catch (err) { console.error(err); }
         })
     );
     console.log('DatabaseService: sync - start live');

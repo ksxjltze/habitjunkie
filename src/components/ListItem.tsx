@@ -1,4 +1,4 @@
-import React, { EventHandler, SyntheticEvent } from 'react';
+import React from 'react';
 
 interface ItemProps {
   title: string;
@@ -7,8 +7,8 @@ interface ItemProps {
   keyId?: number;
   pre?: React.ReactNode;
   children: React.ReactNode;
-  mouseEnter?: Function;
-  mouseLeave?: Function;
+  mouseEnter?: (keyId: number | undefined, e: React.MouseEvent) => void;
+  mouseLeave?: (keyId: number | undefined, e: React.MouseEvent) => void;
 }
 
 const ListItem: React.FC<ItemProps> = ({ title, titleStyle, keyId, style, pre, children, mouseEnter, mouseLeave }) => {

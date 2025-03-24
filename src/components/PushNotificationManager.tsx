@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { subscribeUser, unsubscribeUser, sendNotification } from '../app/actions'
 
-function PushNotificationManager() {
+export default function PushNotificationManager() {
   const [isSupported, setIsSupported] = useState(false)
   const [subscription, setSubscription] = useState<PushSubscription | null>(
     null
