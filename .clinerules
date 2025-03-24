@@ -1,0 +1,112 @@
+# HabitJunkie Project Rules
+
+## Coding Patterns
+
+### Component Structure
+- Use functional components with hooks
+- Export components as default exports
+- Use 'use client' directive for interactive components
+- Follow the pattern of separating component logic from presentation
+
+### State Management
+- Use the DashboardContext for global state related to user data and tasks
+- Use the ThemeContext for theme-related state
+- Use local component state for UI-specific state that doesn't need to be shared
+
+### Styling Approach
+- Use Tailwind CSS utility classes for styling
+- Follow the existing color scheme and design patterns
+- Use the Card component for consistent container styling
+- Use the ListItem component for consistent list item styling
+
+### TypeScript Usage
+- Define interfaces and types in the src/types directory
+- Use proper typing for all components and functions
+- Use type assertions sparingly and only when necessary
+
+## Project Preferences
+
+### File Organization
+- Components go in src/components
+- Context providers go in src/contexts
+- Types go in src/types
+- Utility functions go in src/utils
+- Pages go in src/app
+
+### Naming Conventions
+- PascalCase for component files and component names
+- camelCase for utility functions and variables
+- Use descriptive names that clearly indicate purpose
+
+### Code Style
+- Use consistent indentation (2 spaces)
+- Use semicolons at the end of statements
+- Use single quotes for strings
+- Use trailing commas in multi-line objects and arrays
+
+## Implementation Patterns
+
+### Adding New Features
+1. Define types in src/types/habitjunkie.ts
+2. Add state and functions to the appropriate context
+3. Create UI components in src/components
+4. Update the dashboard to include the new components
+
+### Task Management
+- Tasks (habits, dailies, todos) follow a consistent pattern:
+  - Each has an id, title, and difficulty
+  - Each has specific properties based on its type
+  - Each has associated functions in the DashboardContext
+
+### User Progression
+- User progression is managed through the userData object
+- Experience leads to level ups
+- Health is affected by negative habits
+- Gold is earned through completing tasks and spent on rewards
+
+## Common Workflows
+
+### Adding New Task Types
+1. Define the new task type in src/types/habitjunkie.ts
+2. Add the task array to the TasksData interface
+3. Add initial data to initialTasksData
+4. Add functions to manage the tasks in DashboardContext
+5. Create a new list component in src/components
+6. Add the new list component to the Dashboard
+
+### Modifying Existing Features
+1. Identify the components and contexts involved
+2. Update types if necessary
+3. Modify the context functions
+4. Update the UI components
+
+### Adding UI Components
+1. Create a new component file in src/components
+2. Import necessary dependencies
+3. Define the component with proper typing
+4. Export the component
+5. Import and use the component where needed
+
+## Important Considerations
+
+### Performance
+- Be mindful of unnecessary re-renders
+- Consider using React.memo for components that render frequently
+- Use useCallback for functions passed as props
+- Use useMemo for expensive calculations
+
+### Data Persistence
+- All changes to userData and tasks should be persisted to localStorage
+- Only persist data after the initial client-side load is complete
+- Handle potential localStorage errors
+
+### Accessibility
+- Ensure all interactive elements are keyboard accessible
+- Use semantic HTML elements
+- Provide appropriate ARIA attributes
+- Ensure sufficient color contrast
+
+### Mobile Responsiveness
+- Test all changes on mobile viewports
+- Use responsive Tailwind classes
+- Ensure touch targets are large enough
