@@ -8,8 +8,8 @@ const TodosList: React.FC = () => {
   const { tasks, toggleTodo } = useDashboard();
 
   return (
-    <Card title='To-Dos' children={
-      (<ul className="space-y-3">
+    <Card title='To-Dos'>
+      <ul className="space-y-3">
         {tasks.todos.map(todo => (
           <li key={todo.id} className={`p-2 border rounded-lg flex items-center justify-between ${todo.completed ? 'bg-gray-100 text-gray-500 dark:bg-slate-900' : getDifficultyColor(todo.difficulty)}`}>
             <div className="flex items-center space-x-3">
@@ -31,8 +31,8 @@ const TodosList: React.FC = () => {
         <li className="p-3 border border-dashed border-gray-300 rounded-lg text-center text-gray-500 hover:bg-gray-50 cursor-pointer">
           Add a new to-do
         </li>
-      </ul>)
-    } />
+      </ul>
+    </Card>
   );
 };
 

@@ -7,13 +7,8 @@ import TodosList from './TodosList';
 import RewardsList from './RewardsList';
 import Footer from './Footer';
 import { DashboardProvider } from '../contexts/DashboardContext';
-import { useTheme } from '@/contexts/ThemeContext';
-import ThemeToggle from './ThemeToggle';
-import Card from './Card';
 
 const Dashboard: React.FC = () => {
-  const {theme} = useTheme();
-
   return (
     <DashboardProvider>
       <div className="flex flex-col min-h-screen">

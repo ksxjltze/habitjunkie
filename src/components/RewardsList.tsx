@@ -7,7 +7,7 @@ const RewardsList: React.FC = () => {
   const { tasks, userData, purchaseReward } = useDashboard();
 
   return (
-    <Card title='Rewards' children={(
+    <Card title='Rewards'>
       <ul className="space-y-3">
         {tasks.rewards.map(reward => (
           <li key={reward.id} className="p-3 border border-yellow-200 dark:bg-purple-900 bg-yellow-50 rounded-lg flex items-center justify-between">
@@ -16,8 +16,8 @@ const RewardsList: React.FC = () => {
               onClick={() => purchaseReward(reward.id, reward.cost)}
               disabled={userData.gold < reward.cost}
               className={`flex items-center space-x-1 px-3 py-1 rounded-full text-sm ${userData.gold >= reward.cost
-                  ? 'bg-yellow-500 text-white hover:bg-yellow-600'
-                  : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                ? 'bg-yellow-500 text-white hover:bg-yellow-600'
+                : 'bg-gray-300 text-gray-500 cursor-not-allowed'
                 }`}
             >
               <span>{reward.cost}</span>
@@ -29,7 +29,7 @@ const RewardsList: React.FC = () => {
           Add a new reward
         </li>
       </ul>
-    )} />
+    </Card>
   );
 };
 

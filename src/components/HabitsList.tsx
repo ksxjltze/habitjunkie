@@ -35,19 +35,18 @@ const Habits = () => {
                 )}
               </div>
             )
-          }
-          children={
-            (<div className="flex space-x-2 w-1/8 ml-0.5">
-              {habit.negative && (
-                <button
-                  onClick={() => updateHabit(habit.id, false)}
-                  className="w-8 h-8 rounded-full bg-red-500 dark:bg-gray-800 text-white flex items-center justify-center hover:bg-red-600"
-                >
-                  <MinusCircleIcon></MinusCircleIcon>
-                </button>
-              )}
-            </div>)
-          } />
+          }>
+          <div className="flex space-x-2 w-1/8 ml-0.5">
+            {habit.negative && (
+              <button
+                onClick={() => updateHabit(habit.id, false)}
+                className="w-8 h-8 rounded-full bg-red-500 dark:bg-gray-800 text-white flex items-center justify-center hover:bg-red-600"
+              >
+                <MinusCircleIcon></MinusCircleIcon>
+              </button>
+            )}
+          </div>
+        </ListItem>
       ))}
       <li onClick={openModal} className="p-3 border border-dashed border-gray-300 rounded-lg text-center text-gray-500 hover:bg-gray-50 cursor-pointer">
         <div>
@@ -61,7 +60,9 @@ const Habits = () => {
 
 const HabitsList: React.FC = () => {
   return (
-    <Card title='Habits' children={Habits()} />
+    <Card title='Habits'>
+      <Habits></Habits>
+    </Card>
   );
 };
 

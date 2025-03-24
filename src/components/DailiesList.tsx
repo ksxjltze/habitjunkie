@@ -8,8 +8,8 @@ const DailiesList: React.FC = () => {
   const { tasks, toggleDaily } = useDashboard();
 
   return (
-    <Card title='Dailies' children={
-      (<ul className="space-y-3">
+    <Card title='Dailies'>
+      <ul className="space-y-3">
         {tasks.dailies.map(daily => (
           <li key={daily.id} className={`p-3 border rounded-lg flex items-center justify-between ${daily.completed ? 'bg-gray-100 text-gray-500 dark:bg-slate-900' : getDifficultyColor(daily.difficulty)}`}>
             <div className="flex items-center space-x-3">
@@ -31,8 +31,8 @@ const DailiesList: React.FC = () => {
         <li className="p-3 border border-dashed border-gray-300 rounded-lg text-center text-gray-500 hover:bg-gray-50 cursor-pointer">
           Add a new daily
         </li>
-      </ul>)
-    } />
+      </ul>
+    </Card>
   );
 };
 
