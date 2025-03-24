@@ -6,6 +6,7 @@ import { Difficulty } from '../types/habitjunkie';
 interface AddHabitModalProps {
     isOpen: boolean;
     onClose: () => void;
+    habit?: Habit;
 }
 
 const AddHabitModal: React.FC<AddHabitModalProps> = ({ isOpen, onClose }) => {
@@ -13,10 +14,10 @@ const AddHabitModal: React.FC<AddHabitModalProps> = ({ isOpen, onClose }) => {
     const { addHabit } = useDashboard();
 
     // State for the form inputs
-    const [title, setTitle] = useState('');
-    const [difficulty, setDifficulty] = useState<Difficulty>('medium');
-    const [positive, setPositive] = useState(true);
-    const [negative, setNegative] = useState(false);
+    const [title, setTitle] = useState(props.habit?.title || '');
+    const [difficulty, setDifficulty] = useState<Difficulty>(props.habit?.difficulty || 'medium');
+    const [positive, setPositive] = useState(props.habit?.positive ?? true);
+    const [negative, setNegative] = useState(props.habit?.negative ?? false);
 
     const handleCloseClick = (e: React.MouseEvent) => {
         e.stopPropagation(); // Stop the event from bubbling up
@@ -33,8 +34,13 @@ const AddHabitModal: React.FC<AddHabitModalProps> = ({ isOpen, onClose }) => {
             return;
         }
 
-        // Call the addHabit function from context
-        addHabit(title, difficulty, positive, negative);
+        if (props.habit) {
+          // Update existing habit (preserve count)
+          editHabit(props.habit.id, { title, difficulty, positive, negative });
+        } else {
+          // Add new habit
+          addHabit(title, difficulty, positive, negative);
+        }
 
         // Reset the form
         setTitle('');

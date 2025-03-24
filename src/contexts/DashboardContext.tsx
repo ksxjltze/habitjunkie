@@ -12,9 +12,9 @@ interface DashboardContextType {
   purchaseReward: (id: number, cost: number) => void;
   resetProgress: () => void;
   isLoaded: boolean;
-  // New functions for habit management
   addHabit: (title: string, difficulty: Difficulty, positive: boolean, negative: boolean) => void;
   deleteHabit: (id: number) => void;
+  editHabit: (id: number, updatedHabit: Omit<Habit, 'id' | 'count'>) => void;
 }
 
 const initialUserData: UserData = {
@@ -140,6 +140,16 @@ export const DashboardProvider: React.FC<DashboardProviderProps> = ({ children }
     setTasks({
       ...tasks,
       habits: tasks.habits.filter(habit => habit.id !== id),
+    });
+  };
+
+  // Edit an existing habit
+  const editHabit = (id: number, updatedHabit: Omit<Habit, 'id' | 'count'>): void => {
+    setTasks({
+      ...tasks,
+      habits: tasks.habits.map(habit => 
+        habit.id === id ? { ...habit, ...updatedHabit } : habit
+      )
     });
   };
 
